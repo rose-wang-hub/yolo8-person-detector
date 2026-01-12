@@ -1,0 +1,17 @@
+<launch>
+  <!-- 如你使用 realsense2_camera，可在此包含其官方 launch；
+       若 HumanStateEstimator 自己用 pyrealsense2 打开设备，可以先不写 -->
+  <!--
+  <include file="$(find realsense2_camera)/launch/rs_camera.launch" />
+  -->
+
+  <!-- 视觉人体跟踪：启动后会让你用鼠标框选 ROI，然后持续发布 PersonState -->
+  <node pkg="kuavo_person_follow"
+        type="vision_person_tracker_node.py"
+        name="vision_person_tracker"
+        output="screen">
+    <!-- 根据你当前代码路径设置 detector_root -->
+    <param name="detector_root" value="/home/eric/yolo8-person-detector" />
+    <param name="rate" value="30.0" />
+  </node>
+</launch>

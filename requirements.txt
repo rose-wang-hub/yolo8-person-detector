@@ -1,0 +1,11 @@
+numpy
+opencv-python
+pyrealsense2
+ultralytics
+scipy
+torch
+torchvision
+torchaudio
+rospy
+geometry_msgs
+sensor_msgs
