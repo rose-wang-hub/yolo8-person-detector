@@ -9,13 +9,4 @@
     <param name="v_max" value="0.6" />
     <param name="yaw_rate_max" value="0.8" />
   </node>
-
-  <!-- 上下位机桥接：把 /cmd_vel 通过 UDP 发给 Kuavo 下位机 -->
-  <node pkg="kuavo_person_follow"
-        type="kuavo_lowlevel_bridge_node.py"
-        name="kuavo_bridge"
-        output="screen">
-    <param name="kuavo_ip" value="192.168.1.100" />
-    <param name="kuavo_port" value="9000" />
-  </node>
 </launch>
