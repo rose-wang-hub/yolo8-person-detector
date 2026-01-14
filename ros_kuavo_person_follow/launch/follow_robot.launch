@@ -5,8 +5,14 @@
         name="follow_controller"
         output="screen">
     <param name="state_topic" value="/person_track/vision_state" />
+    <!-- 目前直接将控制输出到 /cmd_vel，由 Kuavo 系统内部处理 -->
+    <param name="cmd_topic" value="/cmd_vel" />
     <param name="dist_target" value="1.5" />
-    <param name="v_max" value="0.6" />
+    <param name="v_max" value="0.4" />
     <param name="yaw_rate_max" value="0.8" />
+    <!-- 激光雷达避障参数：0.5m 内强制停车，0.8m 内线性减速 -->
+    <param name="scan_topic" value="/scan" />
+    <param name="stop_dist" value="0.5" />
+    <param name="slow_dist" value="0.8" />
   </node>
 </launch>

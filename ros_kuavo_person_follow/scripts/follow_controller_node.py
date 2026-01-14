@@ -75,7 +75,12 @@ class PIDFollower(object):
 class FollowControllerNode(object):
     def __init__(self):
         self.pid = PIDFollower()
-        self.pub = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
+
+        # 允许通过参数指定输出控制话题，默认沿用通用的 /cmd_vel
+        # 在 Kuavo4Pro 上建议在 launch 中将其设为 /cmd_vel_app，
+        # 通过现有的多路复用/安全模块再下发到下位机。
+        cmd_topic = rospy.get_param('~cmd_topic', '/cmd_vel')
+        self.pub = rospy.Publisher(cmd_topic, Twist, queue_size=10)
 
         topic = rospy.get_param('~state_topic', '/person_track/vision_state')
         rospy.Subscriber(topic, PersonState, self.state_cb, queue_size=1)

@@ -1,11 +1,14 @@
 numpy
-opencv-python
+opencv-contrib-python==4.5.5.64
 pyrealsense2
 ultralytics
 scipy
 torch
 torchvision
 torchaudio
-rospy
-geometry_msgs
-sensor_msgs
+
+# ROS Python and message packages (installed via apt with ROS Noetic,
+# not via pip):
+#   rospy
+#   geometry_msgs
+#   sensor_msgs

@@ -328,7 +328,18 @@ class HumanStateEstimator:
                 print("警告：深度 ReID 模型初始化失败，将使用颜色直方图 ReID：", e)
 
         # 启动时让用户框选要跟随的目标区域，并初始化 KCF 和外观特征
-        self.tracker = cv2.TrackerKCF_create()
+
+        # 兼容不同 OpenCV 版本的 KCF Tracker 创建方式：
+        # - 旧版本: cv2.TrackerKCF_create()
+        # - 新版本: cv2.legacy.TrackerKCF_create()
+        if hasattr(cv2, "legacy") and hasattr(cv2.legacy, "TrackerKCF_create"):
+            self.tracker = cv2.legacy.TrackerKCF_create()
+        elif hasattr(cv2, "TrackerKCF_create"):
+            self.tracker = cv2.TrackerKCF_create()
+        else:
+            raise AttributeError(
+                "当前 OpenCV 不支持 KCF Tracker，请确认已安装 opencv-contrib-python==4.5.5.64 或兼容版本"
+            )
         self.roi = None
         roi = select_roi_with_mouse(self.pipeline)
         if roi is None:
